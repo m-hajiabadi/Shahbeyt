@@ -25,9 +25,7 @@ SECRET_KEY = '5qs)5#f40wf1)4*5b#s_(usi)h8hj%h7tlc32ew_-5b6fd06#i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+
+    'warriors.apps.WarriorsConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -84,10 +85,15 @@ WSGI_APPLICATION = 'warriors.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'warrior_s',
+        'USER': 'warrior',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+AUTH_USER_MODEL = 'warriors.User'
 
 
 # Password validation
