@@ -1,0 +1,630 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <title>شاه بیت</title>
+    <meta charset="utf-8">
+
+    <!--responsive viewport meta tag-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- icons library-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link type="text/css" href="/static/css/homepage.css" rel="stylesheet">
+    <link type="text/css" href="/static/css/footer.css" rel="stylesheet">
+
+</head>
+
+
+
+
+<body>
+
+
+    <header class="header ">
+
+        <nav class="navbar fixed-top navbar-expand-sm ">
+
+            <a class="navbar-brand" href="{%url 'home'%}">
+                <img src="/static/media/logo.jpg" width="30" height="30" alt="شاه بیت " loading="lazy">
+            </a>
+
+            <ul class="nav justify-content-end">
+
+                <li class="nav-item active">
+                    <a class="nav-link active" href="{%url 'home'%}"> خانه </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " href="#News"> تازه ها </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " href="#About"> درباره ما </a>
+                </li>
+
+            </ul>
+
+            <ul class="navbar-nav mr-auto nav-flex-icons">
+
+                <!--<li class="nav-item">
+                    <form class="form-inline justify-content-end">
+                        <input class="form-control form-control-sm " type="text" placeholder="جستجو" aria-label="Search">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+
+                    </form>
+                </li>-->
+
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <strong>{{ user.username }}</strong>
+                    <a class="sign-in" href="{%url 'signout'%}" title="خروج">
+                        <i class="fa fa-user "></i> خروج
+                    </a>
+                    {% else %}
+                    <a class="sign-in" href="{%url 'login'%}" title="ورود">
+                        <i class="fa fa-user "></i> ورود
+                    </a>
+                    {% endif %}
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+    <h1 id="News"></h1>
+    <div class="mt-5 " id="main-section">
+        
+        <div class="latest">
+
+            <div class="latest-header container text-center p-5 ">
+                <div class="title " >
+                    <h1>تازه ها</h1>
+                </div>
+                <div class="descriptions ">
+                    <p>تازه ترین شعر ها و نظرات</p>
+                </div>
+            </div>
+
+            <div class="latest-lyrics container-fluid ">
+
+                <div class="row ">
+
+                    <div class="col-md-4 ">
+
+                        <div class="latest-card rounded ">
+
+                            <div class="poem p-2 ">
+                                <p> شکوه آصفی و اسب باد و منطق طیر </p>
+                                <p> به باد رفت و از او خواجه هیچ طرف نبست </p>
+                            </div>
+
+                            <div class="comment p-2 mt-2 ">
+                                <p> بسیار زیبا و دلنیشن فرمودند </p>
+                            </div>
+
+                            <div class="info ">
+
+                                <div class="user-info ">
+
+                                    <p href="# ">
+                                        <div class="user-avatar ml-2 ">
+                                            <img src="/static/media/avatar.jpg" alt="user avatar ">
+                                        </div>
+                                        <div class="user-username ">
+                                            <span class="text-center ">taha</span>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="post-meta ">
+
+                                    <span>
+                                        <i class="fa fa-clock-o "></i>
+                                        22 خرداد 98
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 ">
+
+                        <div class="latest-card rounded ">
+
+                            <div class="poem p-2 ">
+                                <p> شکوه آصفی و اسب باد و منطق طیر </p>
+                                <p> به باد رفت و از او خواجه هیچ طرف نبست </p>
+                            </div>
+
+                            <div class="comment p-2 mt-2 ">
+                                <p> بسیار زیبا و دلنیشن فرمودند </p>
+                            </div>
+
+                            <div class="info ">
+
+                                <div class="user-info ">
+
+                                    <p href="# ">
+                                        <div class="user-avatar ml-2 ">
+                                            <img src="/static/media/avatar.jpg" alt="user avatar ">
+                                        </div>
+                                        <div class="user-username ">
+                                            <span class="text-center ">taha</span>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="post-meta ">
+
+                                    <span>
+                                        <i class="fa fa-clock-o "></i>
+                                        22 خرداد 98
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+
+                        <div class="latest-card rounded ">
+
+                            <div class="poem p-2 ">
+                                <p> شکوه آصفی و اسب باد و منطق طیر </p>
+                                <p> به باد رفت و از او خواجه هیچ طرف نبست </p>
+                            </div>
+
+                            <div class="comment p-2 mt-2 ">
+                                <p> بسیار زیبا و دلنیشن فرمودند </p>
+                            </div>
+
+                            <div class="info ">
+
+                                <div class="user-info ">
+
+                                    <p href="# ">
+                                        <div class="user-avatar ml-2 ">
+                                            <img src="/static/media/avatar.jpg" alt="user avatar ">
+                                        </div>
+                                        <div class="user-username ">
+                                            <span class="text-center ">taha</span>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="post-meta ">
+
+                                    <span>
+                                        <i class="fa fa-clock-o "></i>
+                                        22 خرداد 98
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="CommunityRanking">
+
+            <div class="CommunityRanking container">
+
+                <div class="CommunityRanking-header text-center p-3">
+
+                    <div class="title ">
+                        <h1 class="pb-3 "> شاهان شاه بیت</h1>
+                    </div>
+
+                    <div class="description ">
+                        <p>شاه بیتی های فعال</p>
+                    </div>
+
+                </div>
+
+                <div class="CommunityRanking_row row">
+
+                    
+                    <div class="col border border-bottom-0 rounded-top ml-1">
+
+                        <p href="# ">
+                            <div class="CommunityRanking_user">
+
+                                <div class="avatar ">
+                                    <img class="mx-auto d-block img-fluid" src="/static/media/avatar.jpg" alt="user-logo ">
+                                </div>
+
+                                <div class="username ">
+                                    taha
+                                </div>
+
+                            </div>
+
+                            <div class="CommunityRanking_nobogh ">
+                                <span>10,000</span>
+                            </div>
+
+                        </p>
+
+                    </div>
+                    
+
+                    <div class="col border border-bottom-0 rounded-top ml-1 ">
+
+                        <p href="# ">
+                            <div class="CommunityRanking_user ">
+
+                                <div class="avatar ">
+                                    <img class="mx-auto d-block img-fluid " src="/static/media/avatar.jpg" alt="user-logo ">
+                                </div>
+
+                                <div class="username ">
+                                    taha
+                                </div>
+
+                            </div>
+
+                            <div class="CommunityRanking_nobogh ">
+                                <span>10,000</span>
+                            </div>
+
+                        </p>
+
+                    </div>
+
+                    <div class="col border border-bottom-0 rounded-top ml-1 ">
+
+                        <p href="# ">
+                            <div class="CommunityRanking_user ">
+
+                                <div class="avatar ">
+                                    <img class="mx-auto d-block img-fluid " src="/static/media/avatar.jpg" alt="user-logo ">
+                                </div>
+
+                                <div class="username ">
+                                    taha
+                                </div>
+
+                            </div>
+
+                            <div class="CommunityRanking_nobogh ">
+                                <span>10,000</span>
+                            </div>
+
+                        </p>
+
+                    </div>
+
+                    <div class="col border border-bottom-0 rounded-top ml-1 ">
+
+                        <p href="# ">
+                            <div class="CommunityRanking_user ">
+
+                                <div class="avatar ">
+                                    <img class="mx-auto d-block img-fluid " src="/static/media/avatar.jpg" alt="user-logo ">
+                                </div>
+
+                                <div class="username ">
+                                    taha
+                                </div>
+
+                            </div>
+
+                            <div class="CommunityRanking_nobogh ">
+                                <span>10,000</span>
+                            </div>
+
+                        </p>
+
+                    </div>
+
+                    <div class="col border border-bottom-0 rounded-top ml-1 ">
+
+                        <p href="# ">
+                            <div class="CommunityRanking_user ">
+
+                                <div class="avatar ">
+                                    <img class="mx-auto d-block img-fluid " src="/static/media/avatar.jpg" alt="user-logo ">
+                                </div>
+
+                                <div class="username ">
+                                    taha
+                                </div>
+
+                            </div>
+
+                            <div class="CommunityRanking_nobogh ">
+                                <span>10,000</span>
+                            </div>
+
+                        </p>
+
+                    </div>
+
+                    <div class="col border border-bottom-0 rounded-top ml-1 ">
+
+                        <p href="# ">
+                            <div class="CommunityRanking_user ">
+
+                                <div class="avatar ">
+                                    <img class="mx-auto d-block img-fluid " src="/static/media/avatar.jpg" alt="user-logo ">
+                                </div>
+
+                                <div class="username ">
+                                    taha
+                                </div>
+
+                            </div>
+
+                            <div class="CommunityRanking_nobogh ">
+                                <span>10,000</span>
+                            </div>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!--<div class="score text-center">
+                    <a href="# "> مشاهده لیست کامل </a>
+                </div>-->
+
+
+            </div>
+
+        </div>
+
+        <div class="Random" id="About">
+
+            <div class="container-fluid p-4">
+
+                <div class="verse text-center">
+
+                    <a href="">
+                        <div class="row p-4">
+
+                            <div class="col">
+                                <p>پر سخن دارم دلی لیکن چه سود</p>
+                            </div>
+                            <div class="col">
+                                <p>چون زبانم کارگر نی ای عجب</p>
+                            </div>
+
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="AboutUs" id="AboutUs">
+            <div class="AboutUs ">
+                <div class="container ">
+
+                    <div class="row ">
+                        <div class="AboutUs-info col-sm-6 ">
+
+                            <h1 class="title "> درباره شاه بیت</h1>
+                            <p id="description">سامانه شاه‌بیت، پروژه‌ای دانشگاهی‌ست که با هدف توسعه و پیشرفت شعر فارسی ایجاد شده است. آنچه شاه‌بیت در پی انجام آن است، کمک به آسان‌فهم کردن اشعار کلاسیک ادبیات فارسی‌ست. سیستم کاربرمحور سایت به شما این اجازه را می‌دهد تا فهم
+                                و معنی خود را از ابیات به آنها اضافه کرده، یا معانی از پیش مشخص شده ابیات را اصلاح کنید.</p>
+                            <p id="description">
+                                همچنین می‌توانید اشعار سروده توسط خودتان یا شاعران معروف را از طریق فرم«افزودن شعر» به مخزن سایت اضافه کنید.
+                            </p>
+                        </div>
+
+                        <div class="AboutUs-logo col-sm-6 ">
+                            <img class=" mx-auto d-block " src="/static/media/logo.jpg" alt="Logo ">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="lyricsStatistics">
+
+            <div class="container ">
+                <div class="row ">
+
+                    <div class="col-lg-4 col-sm-4 ">
+
+                        <div class="box p-2 ">
+
+                            <div class="box-icon ">
+                                <img class="mx-auto d-block p-1 " src="/static/media/poet.jpg " alt="box picture ">
+                            </div>
+
+                            <div class="box-title p-1 ">
+                                <span>تعداد شعر ها</span>
+                            </div>
+
+                            <div class="box-count p-1 ">
+                                <span>+100</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-4 col-sm-4 ">
+
+                        <div class="box p-2 ">
+
+                            <div class="box-icon ">
+                                <img class="mx-auto d-block p-1 " src="/static/media/number_of_users.png" alt="box picture ">
+                            </div>
+
+                            <div class="box-title p-1 ">
+                                <span>تعداد کاربران</span>
+                            </div>
+
+                            <div class="box-count p-1 ">
+                                <span>+50</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-4 ">
+
+                        <div class="box p-2 ">
+
+                            <div class="box-icon ">
+                                <img class="mx-auto d-block p-1 " src="/static/media/number_of_comments.png" alt="box picture ">
+                            </div>
+
+                            <div class="box-title p-1 ">
+                                <span>تعداد نظرات</span>
+                            </div>
+
+                            <div class="box-count p-1 ">
+                                <span>+500</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small blue-grey lighten-5 ">
+
+        <div style="background-color:#fafafa; ">
+            <div class="container ">
+
+                <div class="row py-4 d-flex align-items-center ">
+
+                    <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0 ">
+                        <h6 class="mb-0 ">ما را در شبکه های اجتماعی دنبال کنید :</h6>
+                    </div>
+                
+                    <div class="col-md-6 col-lg-7 text-center text-md-right ">
+
+                        <a href="# " class="fa fa-instagram "></a>
+                        <a href="# " class="fa fa-telegram "></a>
+                        <a href="# " class="fa fa-linkedin "></a>
+                        <a href="https://twitter.com/ParsiGhande" class="fa fa-twitter "></a>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="footer-links container text-center text-md-left mt-5 ">
+
+            <!-- Grid row -->
+            <div class="row mt-3 dark-grey-text ">
+
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mb-4 ">
+
+                    <!-- Content -->
+                    <h6 class="text-uppercase font-weight-bold text-md-right ">
+                        <img src="/static/media/logo.jpg" alt="logo " width="30 "> شاه بیت
+                    </h6>
+                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto " style="width: 60px; ">
+                    <p style="text-align: right; ">سامانه هوشمند برسی شعر و تبادل نظرات</p>
+
+                </div>
+                <!-- Grid column -->
+
+
+                <!-- Grid column -->
+                <div class="links col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 text-center ">
+
+                    <!-- Links -->
+                    <h6 class="text-uppercase font-weight-bold ">لینک های مفید</h6>
+                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto " style="width: 60px; ">
+                    <p>
+                        <a class="dark-grey-text " href="#! "></a><!--پروفایل-->
+                    </p>
+                    <p>
+                        <a class="dark-grey-text " href="#About">درباره ما</a>
+                    </p>
+                    <p>
+                        <a class="dark-grey-text " href="#ContactUs"></a><!--درباره ما-->
+                    </p>
+                    <p>
+                        <a class="dark-grey-text " href="#! "></a><!--سوالات متداول-->
+                    </p>
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="contact-us col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 text-center " id="ContactUs">
+
+                    <!-- Links -->
+                    <h6 class="text-uppercase font-weight-bold ">تماس با ما</h6>
+                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto " style="width: 60px; ">
+                    <p>
+                        <i class="fa fa-home "></i> ایران( تهران - اراک - تنکابن - بیرجند) </p><!--شهرها-->
+                    <p>
+                        <i class="fa fa-envelope "></i> info@shabeyt.ir</p>
+                    <p>
+                        <i class="fa fa-phone "></i> +98 000 000 000</p>
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+        </div>
+        <!-- Footer Links -->
+
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-1 font-weight-bold ">تمام حقوق مادی و معنوی این وبسایت متعلق به شاه بیت است
+            <br>
+            <p style="color: #37474F; "> © 2020 Copyright</p>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+    <script type="text/javascript">
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
+
+</body>
+
+</html>
