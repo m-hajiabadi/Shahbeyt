@@ -61,6 +61,7 @@ REST_FRAMEWORK = {
 
 ROOT_URLCONF = 'warriors.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

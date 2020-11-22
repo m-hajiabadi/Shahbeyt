@@ -146,6 +146,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an username')
         if not email:
             raise ValueError('Users must have an email address')
+
         email = self.normalize_email(email)
         user = self.model(
             username=username,
@@ -172,16 +173,26 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, password,username):
         """
         Creates and saves a superuser with the given email and password.
         """
-        user = self.create_user(
+        # user = self.create_user(
+        #     email=email,
+        #     password=password,
+        # )
+        if not email:
+            raise ValueError('Users must have an email address')
+        email = self.normalize_email(email)
+        user = self.model(
             email=email,
-            password=password,
+            username=username,
+            is_superuser=True,  # TODO:this line should change
+            # is_staff=True
         )
         user.is_staff = True
         user.admin = True
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
@@ -197,7 +208,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     creation_date = models.DateField(auto_now_add=True)
     score = models.IntegerField(default=0)
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=50)
+    username = models.CharField(max_length=50,unique=True)
     password = models.CharField(max_length=200)
 
     object = UserManager()

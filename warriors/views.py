@@ -13,6 +13,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
+
 # class SignUp(APIView):
 #     def post(self, request):
 #         data = request.data
@@ -52,8 +53,10 @@ from django.urls import reverse
 class HomeView(TemplateView):
     template_name = 'index.html'
 
+
 class TryLogin(TemplateView):
     template_name = 'try_login.html'
+
 
 class SignUpView(CreateView):
     model = User
@@ -66,29 +69,38 @@ class SignUpView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        user.set_password(user.password)
+        user.save()
         login(self.request, user)
         return redirect('home')
 
+
 class SignInView(TemplateView):
     template_name = 'sign_in.html'
+
     def post(self, request):
         email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(email=email, password=password)
+        # user = authenticate(email=email, password=password)
+        user = User.object.filter(email = email).first()
+        if user is not None:
+            if user.check_password(password):
+                if user.is_active:
+                    login(request, user)
 
-        if user is not None:    
-            if user.is_active:
-                login(request, user)
-
-                return HttpResponseRedirect(reverse('home'))
+                    return HttpResponseRedirect(reverse('home'))
+                else:
+                    return HttpResponse("Your account is not active.")
             else:
-                return HttpResponse("Your account is not active.")
-        else:
-            print("Someone tried to login and failed")
-            print("They used username: {} and passoword: {}".format(email, password))
+                print("Someone tried to login and failed")
+                print("They used username: {} and passoword: {}".format(email, password))
+                return HttpResponseRedirect(reverse('try_login'))
+        else :
+            print("user with this email not exist")
             return HttpResponseRedirect(reverse('try_login'))
 
         # return render(request, 'sign_in.html', {})   
+
 
 class SignOutView(View):
     def get(self, request):
@@ -97,9 +109,7 @@ class SignOutView(View):
 
 
 class UsersList(ListView):
-    
     model = User
-    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
