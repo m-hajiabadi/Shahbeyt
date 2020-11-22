@@ -1,0 +1,22 @@
+/* * {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+    background-color: #ffbb33;
+    position: relative;
+    direction: rtl;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+}
+
+.navbar .navbar-brand img {
+    width: 45px;
+    height: 45px;
+    max-width: 35px;
+    rounded
+} */

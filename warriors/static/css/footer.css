@@ -1,0 +1,52 @@
+.row {
+    direction: rtl;
+}
+
+.page-footer {
+    background-color: #eeeeee;
+    color: #1C2331;
+}
+
+.footer-copyright {
+    color: #1C2331;
+    background-color: rgb(255, 255, 100);
+}
+
+.contact-us p {
+    direction: ltr;
+}
+
+.footer-links .links a {
+    color: #1C2331;
+}
+
+
+/* Style all font awesome icons */
+
+.fa {
+    padding: 20px;
+    font-size: 20px;
+    width: 20px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-instagram {
+    color: #e4405f;
+}
+
+.fa-linkedin {
+    color: #0077B5;
+}
+
+.fa-twitter {
+    color: #55acee;
+}
+
+.fa-telegram {
+    color: #08a3fd;
+}

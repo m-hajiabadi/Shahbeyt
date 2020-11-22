@@ -1,0 +1,294 @@
+@font-face {
+    font-family: Vazir;
+    font-style: normal;
+    font-weight: normal;
+    src: url('fonts/Vazir.eot');
+    src: url('fonts/Vazir.eot?#iefix') format('embedded-opentype'), url('fonts/Vazir.woff2') format('woff2'), url('fonts/Vazir.woff') format('woff'), url('fonts/Vazir.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: VazirBold;
+    font-style: normal;
+    font-weight: normal;
+    src: url('fonts/Vazir-Bold.eot');
+    src: url('fonts/Vazir-Bold.eot') format('embedded-opentype'), url('fonts/Vazir-Bold.eot') format('woff2'), url('fonts/Vazir-Bold.eot') format('woff'), url('fonts/Vazir-Bold.eot') format('truetype');
+}
+
+body {
+    font-family: Vazir;
+    font-weight: normal;
+    direction: rtl;
+    background-color: #fafafa;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+/* nav */
+
+.navbar .navbar-nav .form-inline {
+    padding-left: 25px;
+}
+
+.navbar .navbar-nav .form-inline input {
+    width: 250px;
+}
+
+.navbar {
+    background-color: rgb(255, 255, 100);
+    direction: rtl;
+}
+
+.navbar a {
+    color: #1C2331;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: #17233a;
+    text-decoration: none;
+}
+
+
+/* latest */
+
+.latest-lyrics {
+    padding: 25px;
+}
+
+.latest-header {
+    border-bottom: 1px solid #1C2331
+}
+
+.latest-header .title h1 {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.latest-card {
+    background-color: rgb(255, 255, 100);
+    margin: 20px;
+    padding: 5px 10px;
+}
+
+.poem {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.poem p {
+    text-align: center;
+}
+
+.comment {
+    font-size: 14px;
+    height: 150px;
+}
+
+.comment p {
+    text-align: right;
+}
+
+.info {
+    /* display: flex;
+    justify-content: center; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.user-info a {
+    display: flex;
+    align-items: center;
+    color: #8c8c8c;
+}
+
+.user-info a:hover {
+    color: black;
+}
+
+.info .user-avatar img {
+    border-radius: 50%;
+    max-width: 20px;
+    height: 20px;
+}
+
+.info .user-username span {
+    font-size: .75rem;
+    text-align: right;
+}
+
+.post-meta span {
+    font-size: .625rem;
+    font-weight: 600;
+    opacity: .7;
+}
+
+.post-meta i {
+    font-size: 1.1em;
+}
+
+
+/* random poem */
+
+.Random {
+    margin-bottom: 150px;
+}
+
+.Random .container-fluid {
+    background-color: rgb(18, 18, 18);
+}
+
+.Random .verse p {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.Random .verse a {
+    color: rgb(255, 255, 100);
+}
+
+.Random .verse a:hover {
+    background-color: wheat;
+    color: rgb(255, 255, 100);
+}
+
+
+/*About us  */
+
+.main-section .AboutUs {
+    background-color: #fafafa;
+    padding: 100px 0;
+}
+
+.AboutUs .AboutUs-info {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.AboutUs .AboutUs-logo img {
+    display: block;
+    max-width: 50%;
+    height: auto;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.AboutUs h1 {
+    text-align: right;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.AboutUs-info #description {
+    font-size: 18px;
+    line-height: 32px;
+    text-align: right;
+    font-family: Vazir;
+}
+
+
+/* user-ranking */
+
+.CommunityRanking {
+    background-color: #ffffff;
+    padding: 100px 0;
+}
+
+.CommunityRanking-header {
+    border-bottom: 1px solid #1C2331
+}
+
+.CommunityRanking h1 {
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.CommunityRanking_row {
+    margin-top: 50px;
+}
+
+.CommunityRanking_row .avatar {
+    margin-bottom: 15px;
+}
+
+.CommunityRanking .score a {
+    align-items: center;
+    font-size: 18px;
+    border-style: solid;
+    padding: 5px 15px;
+}
+
+.CommunityRanking .score a {
+    color: #1C2331;
+}
+
+.CommunityRanking .score a:hover {
+    background-color: #1C2331;
+    color: #ffffff;
+}
+
+.CommunityRanking_row {
+    line-height: 1;
+}
+
+.CommunityRanking_row a {
+    color: #1C2331;
+}
+
+.CommunityRanking_row a:hover {
+    background-color: #1C2331;
+    color: #8c8c8c;
+}
+
+.CommunityRanking .CommunityRanking_user,
+.CommunityRanking_nobogh {
+    text-align: center;
+}
+
+.CommunityRanking .score {
+    margin-top: 150px;
+}
+
+.CommunityRanking img {
+    max-width: 80px;
+    height: auto;
+    border-radius: 50%;
+}
+
+
+/* ----------------- */
+
+.lyricsStatistics {
+    margin-top: 100px;
+    padding: 80px 0;
+}
+
+.box .box-icon img {
+    border-radius: 1%;
+    max-width: 150px;
+    height: auto;
+}
+
+.box .box-title {
+    font-size: 20px;
+    text-align: center;
+}
+
+.box .box-count {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
