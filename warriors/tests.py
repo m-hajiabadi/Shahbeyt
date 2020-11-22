@@ -7,12 +7,11 @@ from rest_framework.authtoken.models import Token
 
 class UsersTest(APITestCase):
     def setUp(self):
-        self.test_user = User.objects.create_user('testuser', 'test@example.com', 'testpassword')
-        self.create_url = reverse('user-create')
+        self.test_user = User.object.create_user('test@example.com', 'testpassword')
+        self.create_url = reverse('sign_up')
 
     def test_create_user(self):
         data = {
-            'username': 'foobar',
             'email': 'foobar@example.com',
             'password': 'somepassword',
         }
@@ -20,7 +19,7 @@ class UsersTest(APITestCase):
         user = User.objects.latest('id')
         self.assertEqual(User.objects.count(), 2)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data['username'], data['username'])
+        # self.assertEqual(response.data['username'], data['username'])
         self.assertEqual(response.data['email'], data['email'])
         self.assertFalse('password' in response.data)
         token = Token.objects.get(user=user)

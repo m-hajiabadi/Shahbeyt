@@ -22,5 +22,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', SignUp.as_view(), name='sign_up'),
     path('login/', login, name='login'),
-    # path('users/api/users', views.UserCreat.as_view(), name='user-create'),
 ]
