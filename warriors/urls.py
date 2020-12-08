@@ -15,21 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from warriors.warriors.views.login import *
-
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('signup/', SignUp.as_view(), name='sign_up'),
-#     path('login/', login, name='login'),
-# ]
+from warriors.views.login import *
+from warriors.views.profile import *
+# from warriors.warriors.views.login import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', SignInView.as_view(), name='login'),
-    path('sign_up', SignUpView.as_view(), name='signup'),
-    path('', HomeView.as_view(), name='home'),
-    path('signout/', SignOutView.as_view(), name='signout'),
-    path('try_login/', TryLogin.as_view(), name='try_login'),
-    # path('users/api/users', views.UserCreat.as_view(), name='user-create'),
+    path('signup/', SignUp.as_view(), name='sign_up'),
+    path('login/', login, name='login'),
+    path('user/profile/',user_profile, name=''),
 ]
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('login/', SignInView.as_view(), name='login'),
+#     path('sign_up', SignUpView.as_view(), name='signup'),
+#     path('', HomeView.as_view(), name='home'),
+#     path('signout/', SignOutView.as_view(), name='signout'),
+#     path('try_login/', TryLogin.as_view(), name='try_login'),
+#     # path('users/api/users', views.UserCreat.as_view(), name='user-create'),
+# ]
