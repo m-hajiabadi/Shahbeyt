@@ -48,6 +48,9 @@ def update_profile(request):
             user.score += PROFILE_COMPLETE_SCORE
             user.isComplete = True
             user.save()
+    else :
+        return Response({"status": 2002}, status=status.HTTP_400_BAD_REQUEST)
+
     return Response({"status": 2000}, status=status.HTTP_200_OK)
 
 # @api_view(['POST'])

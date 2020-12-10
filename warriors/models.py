@@ -220,13 +220,26 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.firstname + self.lastname
 
 
-class Poem():
-    pass
+class Poem(models.Model):
+    GHALEB_LIST = ['robayi', 'masnavi', 'ghazal']
+    GHALEB_CHOISES = [(number, name) for number, name in enumerate(GHALEB_LIST)]
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    poet = models.CharField(max_length=200)
+    beyt_numbers = models.IntegerField()
+    create_data = models.DateField(auto_now_add=True)
+    ghaleb = models.CharField(max_length=50)
 
 
-class Beyt():
-    pass
+class Beyt(models.Model):
+    poem = models.ForeignKey(Poem,on_delete=models.CASCADE)
+    context = models.TextField()
+    isKing = models.BooleanField(default=False)
+    number_of_beyt = models.IntegerField()
 
-
-class Comment():
-    pass
+class Comment(models.Model):
+    poem = models.ForeignKey(Poem,on_delete=models.CASCADE)
+    context = models.TextField()
+    like_number = models.IntegerField(default=0)
+    dislike_number = models.IntegerField(default=0)
+    create_data = models.DateField(auto_now_add=True)
+    commenter = models.ForeignKey(User,on_delete=models.CASCADE)

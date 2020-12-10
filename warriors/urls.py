@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from warriors.views.login import *
 from warriors.views.profile import *
+from warriors.views.poem import *
 # from warriors.warriors.views.login import *
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('user/profile/',user_profile, name=''),
     path('user/profile/update/',update_profile, name='update profile'),
+    path('poem/<str:poem_id>/',show_poem, name='show poem'),
 ]
 
 # urlpatterns = [
