@@ -126,6 +126,9 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = False
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
