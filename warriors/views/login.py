@@ -24,8 +24,6 @@ class SignUp(APIView):
             token, create = Token.objects.get_or_create(user=user)
             return Response({"token : ": token.key})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 # @permission_classes([IsAuthenticated])
 # @api_view(['GET'])
 # def get_users(request):

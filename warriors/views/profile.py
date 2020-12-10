@@ -3,7 +3,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from warriors.serializers import LoginUserSerializer, serializers, UserSerializer
+from  warriors.serializers import LoginUserSerializer, serializers, UserSerializer, UserSerializer_out
+from warriors.settings import PROFILE_COMPLETE_SCORE
+
 from warriors.models import User
 from rest_framework.authtoken.models import Token
 
@@ -12,7 +14,6 @@ from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-
 
 # class profile(APIView):
 #     queryset = User.objects.all().order_by('-date_joined')
@@ -23,14 +24,31 @@ from django.urls import reverse
 #     def get(self,request):
 #         pass
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def user_profile(request):
     user = request.user
     if user is None:
-        return Response({"status": 400}, status=status.HTTP_400_BAD_REQUEST)
-    serializer = UserSerializer(user)
+        return Response({"status": 2001}, status=status.HTTP_400_BAD_REQUEST)
+    serializer = UserSerializer_out(user)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def update_profile(request):
+    user = request.user
+    if user is None:
+        return Response({"status": 2001}, status=status.HTTP_400_BAD_REQUEST)
+    serializer = UserSerializer(data=request.data,partial=True)
+    if serializer.is_valid():
+        user = serializer.update(user, serializer.validated_data)
+        if not user.isComplete:
+            user.score += PROFILE_COMPLETE_SCORE
+            user.isComplete = True
+            user.save()
+    return Response({"status": 2000}, status=status.HTTP_200_OK)
 
 # @api_view(['POST'])
 # @permission_classes([IsAuthenticated])
@@ -88,4 +106,3 @@ def user_profile(request):
 #             return Response("login failed")
 #     except:
 #         return Response("invalid data")
-

@@ -24,6 +24,7 @@ urlpatterns = [
     path('signup/', SignUp.as_view(), name='sign_up'),
     path('login/', login, name='login'),
     path('user/profile/',user_profile, name=''),
+    path('user/profile/update/',update_profile, name='update profile'),
 ]
 
 # urlpatterns = [

@@ -138,7 +138,7 @@ from django.contrib.auth.models import AbstractUser, PermissionsMixin, User
 
 
 class UserManager(BaseUserManager):
-    def create_user(self,username, email, password):
+    def create_user(self, username, email, password):
         """
         Creates and saves a User with the given email and password.
         """
@@ -151,7 +151,7 @@ class UserManager(BaseUserManager):
         user = self.model(
             username=username,
             email=email,
-            is_superuser=False,#TODO:this line should change
+            is_superuser=False,  # TODO:this line should change
             # is_staff=True
         )
 
@@ -159,7 +159,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self,username, email, password):
+    def create_staffuser(self, username, email, password):
         """
         Creates and saves a staff user with the given email and password.
         """
@@ -173,7 +173,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password,username):
+    def create_superuser(self, email, password, username):
         """
         Creates and saves a superuser with the given email and password.
         """
@@ -208,9 +208,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     creation_date = models.DateField(auto_now_add=True)
     score = models.IntegerField(default=0)
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=50,unique=True)
+    username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=200)
-
+    isComplete = models.BooleanField(default=False)
     object = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -218,3 +218,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.firstname + self.lastname
+
+
+class Poem():
+    pass
+
+
+class Beyt():
+    pass
+
+
+class Comment():
+    pass
