@@ -24,5 +24,5 @@ def show_poem( request, poem_id):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_poem(reqeust):
-
+    pass
 
