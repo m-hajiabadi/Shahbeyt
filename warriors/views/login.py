@@ -24,11 +24,7 @@ class SignUp(APIView):
             token, create = Token.objects.get_or_create(user=user)
             return Response({"token : ": token.key})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-# @permission_classes([IsAuthenticated])
-# @api_view(['GET'])
-# def get_users(request):
-#     users = User.objects.filter().by_order('score')
-#     serializer = UserListSerializer(users,many = True)
+
 
 @api_view(['POST'])
 def login(request):
@@ -37,13 +33,14 @@ def login(request):
         password = data['password']
         email = data['email']
         user = User.object.filter(email=email).first()
-
+        if user is None:
+            return Response("email is wrong ")
         print(user)
         if user.check_password(raw_password=password):
             token = Token.objects.filter(user=user).first()
             return Response(token.key)
         else:
-            return Response("login failed")
+            return Response("password is wrong")
     except Exception as e :
         print(e)
         return Response("invalid data")
