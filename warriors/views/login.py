@@ -34,13 +34,13 @@ def login(request):
         email = data['email']
         user = User.object.filter(email=email).first()
         if user is None:
-            return Response("email is wrong ")
+            return Response("email is wrong ",status=status.HTTP_400_BAD_REQUEST)
         print(user)
         if user.check_password(raw_password=password):
             token = Token.objects.filter(user=user).first()
             return Response(token.key)
         else:
-            return Response("password is wrong")
+            return Response("password is wrong",status=status.HTTP_400_BAD_REQUEST)
     except Exception as e :
         print(e)
         return Response("invalid data")
