@@ -236,6 +236,13 @@ class Beyt(models.Model):
     isKing = models.BooleanField(default=False)
     number_of_beyt = models.IntegerField()
 
+    # def create_beyt (self,context,isKing=False):
+    #     if context is None :
+    #         raise ValueError('context must have text')
+    #     self.model(context = context,
+    #                isKing=isKing,
+    #                )
+
 class Comment(models.Model):
     poem = models.ForeignKey(Poem,on_delete=models.CASCADE)
     context = models.TextField()

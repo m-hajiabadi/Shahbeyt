@@ -27,14 +27,5 @@ urlpatterns = [
     path('user/profile/',user_profile, name=''),
     path('user/profile/update/',update_profile, name='update profile'),
     path('poem/<str:poem_id>/',show_poem, name='show poem'),
+    path('addPoem/',add_poem, name='add poem'),
 ]
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('login/', SignInView.as_view(), name='login'),
-#     path('sign_up', SignUpView.as_view(), name='signup'),
-#     path('', HomeView.as_view(), name='home'),
-#     path('signout/', SignOutView.as_view(), name='signout'),
-#     path('try_login/', TryLogin.as_view(), name='try_login'),
-#     # path('users/api/users', views.UserCreat.as_view(), name='user-create'),
-# ]

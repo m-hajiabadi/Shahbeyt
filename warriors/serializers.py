@@ -1,3 +1,4 @@
+from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from .models import User, Beyt, Poem
@@ -38,7 +39,23 @@ class UserSerializer_out(serializers.ModelSerializer):
         model = User
         fields = ('email', 'username', 'bio', 'phone', 'firstname', 'lastname', 'score')
 
+class BeytSerializer(serializers.ModelSerializer):
+    poem_id = serializers.CharField()
+    class Meta:
+        model = Beyt
+        fields = ('isKing','context','number_of_beyt','poem_id')
 
+    def create (self,validated_data):
+        poem_id = validated_data['poem_id']
+        poem = Poem.objects.filter(id = poem_id).first()
+        if poem is None :
+            raise ValueError('poem not exist')
+        validated_data.pop('poem_id')
+        beyt = Beyt(**validated_data,poem = poem )
+        if beyt is None :
+            raise ValueError('can not create beyt ')
+        beyt.save()
+        return beyt
 class PoemSerializer_out(serializers.ModelSerializer):
     beyts = serializers.SerializerMethodField()
 
@@ -48,3 +65,19 @@ class PoemSerializer_out(serializers.ModelSerializer):
 
     def get_beyts(self, obj):
         return Beyt.objects.filter(poem_id=obj.id).order_by('number_of_beyt').values('context')
+
+
+class PoemSerializer(serializers.ModelSerializer):
+    user_id = serializers.CharField()
+    class Meta :
+        model = Poem
+        fields = ('user_id','poet','ghaleb','beyt_numbers')
+
+    def create(self, validated_data):
+        user_id = validated_data.pop('user_id')
+        user = User.object.filter(id = user_id).first()
+        poem = Poem(creator=user,**validated_data)
+        if poem is None:
+           raise ValueError('poem can not create')
+        poem.save()
+        return poem
