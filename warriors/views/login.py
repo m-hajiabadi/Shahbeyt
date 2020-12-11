@@ -40,11 +40,12 @@ def login(request):
 
         print(user)
         if user.check_password(raw_password=password):
-            token, create = Token.objects.get_or_create(user)
+            token = Token.objects.filter(user=user).first()
             return Response(token.key)
         else:
             return Response("login failed")
-    except:
+    except Exception as e :
+        print(e)
         return Response("invalid data")
 
 #
