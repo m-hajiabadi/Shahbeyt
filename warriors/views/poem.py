@@ -23,6 +23,7 @@ def show_poem(request, poem_id):
         return Response({"status": 3001})
 
 
+
 @permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def add_poem(request):
