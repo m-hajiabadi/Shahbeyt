@@ -58,10 +58,11 @@ class BeytSerializer(serializers.ModelSerializer):
         return beyt
 class PoemSerializer_out(serializers.ModelSerializer):
     beyts = serializers.SerializerMethodField()
+    creator_name = serializers.CharField(source='creator.username')
 
     class Meta:
         model = Poem
-        fields = '__all__'
+        fields = ['ghaleb','poet','beyt_numbers','create_data','creator_name','beyts']
 
     def get_beyts(self, obj):
         return Beyt.objects.filter(poem_id=obj.id).order_by('number_of_beyt').values('context')
