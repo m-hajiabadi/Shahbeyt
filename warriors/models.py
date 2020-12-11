@@ -221,7 +221,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Poem(models.Model):
-    GHALEB_LIST = ['robayi', 'masnavi', 'ghazal']
+    GHALEB_LIST = ['رباعی', 'مثنوی', 'غزل','قصیده']
     GHALEB_CHOISES = [(number, name) for number, name in enumerate(GHALEB_LIST)]
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     poet = models.CharField(max_length=200)
