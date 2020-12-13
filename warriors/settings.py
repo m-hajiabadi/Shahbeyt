@@ -24,7 +24,7 @@ STATIC_DIR = os.path.join(BASE_DIR, "warriors/static")
 SECRET_KEY = '5qs)5#f40wf1)4*5b#s_(usi)h8hj%h7tlc32ew_-5b6fd06#i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 # Application definition
@@ -146,6 +146,12 @@ APPEND_SLASH=False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+# fix redirection for /api/admin/
+LOGIN_REDIRECT_URL = '/api/'
+LOGIN_URL = '/api/accounts/login/'
+USE_X_FORWARDED_HOST = True
+FORCE_SCRIPT_NAME = '/api'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'warriors/static')
 
