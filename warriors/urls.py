@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', SignUp.as_view(), name='sign_up'),
     path('login/', Login.as_view(), name='login'),
+    path('changepassword/', change_password, name='change password'),
     path('user/profile/',user_profile, name=''),
     path('user/profile/update/',update_profile, name='update profile'),
     path('poem/<str:poem_id>/',show_poem, name='show poem'),
@@ -34,4 +35,5 @@ urlpatterns = [
     # path('mainpage/users',user_number, name='user number'),
     path('mainpage/poems',poem_number, name='poem number'),
     path('mainpage/randombeyt',random_beyt, name='random beyt'),
+    path('mainpage/newpoems',new_poems, name='new poems'),
 ]

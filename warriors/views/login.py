@@ -45,6 +45,23 @@ class Login(APIView):
             print(e)
             return Response("invalid data")
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def change_password(request):
+    try:
+        data = request.data
+        user = request.user
+        password = data['password']
+        new_password = data['new_password']
+        if user.check_password(raw_password=password):
+            user.set_password(raw_password=new_password)
+            user.save()
+            return Response( status=status.HTTP_200_OK)
+        return Response("password is wrong", status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e :
+        print(e)
+        return Response("invalid data")
+
 
 class SignOutView(View):
     def get(self, request):

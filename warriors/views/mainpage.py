@@ -56,6 +56,14 @@ def pick_random_object():
 
 @api_view(['GET'])
 def random_beyt(request):
-    beyt = Beyt.objects.filter(pk=pick_random_object())
+    beyt = Beyt.objects.filter()[pick_random_object()]
+    serializers = BeytSerializer_out(beyt)
+    return Response(serializers.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def new_poems(request):
+    beyt = Beyt.objects.filter(isKing=True).order_by('-poem__create_data')
+    if beyt.count()>3:
+        beyt =beyt[:3]
     serializers = BeytSerializer_out(beyt, many=True)
     return Response(serializers.data, status=status.HTTP_200_OK)
