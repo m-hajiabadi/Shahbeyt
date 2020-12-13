@@ -8,6 +8,7 @@ from warriors.settings import PROFILE_COMPLETE_SCORE
 
 from warriors.models import  Poem
 from ..models import User as UserModel
+
 from rest_framework.authtoken.models import Token
 
 from django.views.generic import TemplateView, CreateView, View, ListView
