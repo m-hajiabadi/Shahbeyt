@@ -3,12 +3,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from warriors.serializers import LoginUserSerializer, serializers, UserSerializer, UserSerializer_out
-from warriors.settings import PROFILE_COMPLETE_SCORE
+from warriors.serializers import LoginUserSerializer, serializers, UserSerializer, UserSerializer_out, \
+    PoemSerializer_out, BeytSerializer_out
 
-from warriors.models import  Poem
-from ..models import User as UserModel
-
+from warriors.settings import PROFILE_COMPLETE_SCORE, TOP_USER_NUMBERS
+import random
+from ..models import User as UserModel, Poem, Beyt
+from ..serializers import PoemSerializer
 from rest_framework.authtoken.models import Token
 
 from django.views.generic import TemplateView, CreateView, View, ListView
@@ -30,34 +31,31 @@ def poem_number(request):
     return Response({"number": poem_number})
 
 
-# @api_view(['GET'])
-# def top_users(request):
-#     cnt = UserModel.object.all().count()
-#     print(cnt)
-#     users = UserModel.object.last()
-#     # users = [dict(q) for q in users]
-#     # def querySet_to_list(qs):
-#     #     """
-#     #     this will return python list<dict>
-#     #     """
-#     #     return [dict(q) for q in qs]
-#     #
-#     # def get_answer_by_something(request):
-#     #     ss = Answer.objects.filter(something).values()
-#     #     querySet_to_list(ss)  # python list return.(json-able)
-#
-#     # if User.object.all().count() > 6:
-#     #     users = User.object.filter()
-#     # else:
-#     #     users = User.object.all().order_by('score')
-#     # temp = []
-#     # for i in users :
-#     #     temp.append(i.object.get())
-#     # print(temp)
-#     # users = list (users)
-#     print(users)
-#     serializers = UserSerializer(data =users)
-#     if serializers.is_valid():
-#         return Response(serializers.data, status=status.HTTP_200_OK)
-#     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET'])
+def new_poem(request):
+    poem = Poem.objects.last()
+    serializers = PoemSerializer_out(poem)
+    return Response(serializers.data, status=status.HTTP_200_OK)
+    # return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['GET'])
+def top_users(request):
+    if UserModel.object.all().count() > TOP_USER_NUMBERS:
+        users = UserModel.object.all().order_by('-score')[:6]
+    else:
+        users = UserModel.object.all().order_by('-score')
+    print(users)
+    serializers = UserSerializer(users, many=True)
+    return Response(serializers.data, status=status.HTTP_200_OK)
+
+
+def pick_random_object():
+    return random.randrange(1, Beyt.objects.all().count() + 1)
+
+
+@api_view(['GET'])
+def random_beyt(request):
+    beyt = Beyt.objects.filter(pk=pick_random_object())
+    serializers = BeytSerializer_out(beyt, many=True)
+    return Response(serializers.data, status=status.HTTP_200_OK)

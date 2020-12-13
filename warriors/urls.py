@@ -29,7 +29,9 @@ urlpatterns = [
     path('user/profile/update/',update_profile, name='update profile'),
     path('poem/<str:poem_id>/',show_poem, name='show poem'),
     path('addPoem/',add_poem, name='add poem'),
-    # path('mainpage/top',top_users, name='top users'),
+    path('mainpage/top',top_users, name='top users'),
     path('mainpage/users',user_number, name='user number'),
+    # path('mainpage/users',user_number, name='user number'),
     path('mainpage/poems',poem_number, name='poem number'),
+    path('mainpage/randombeyt',random_beyt, name='random beyt'),
 ]

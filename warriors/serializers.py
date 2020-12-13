@@ -82,3 +82,14 @@ class PoemSerializer(serializers.ModelSerializer):
            raise ValueError('poem can not create')
         poem.save()
         return poem
+
+class PoemSerializer_test(serializers.ModelSerializer):
+    class Meta :
+        model = Poem
+        fields = ('poet','ghaleb','beyt_numbers')
+
+class BeytSerializer_out(serializers.ModelSerializer):
+    poem_id = serializers.CharField(source = 'poem.pk')
+    class Meta:
+        model = Beyt
+        fields = ('isKing','context','number_of_beyt','poem_id')
