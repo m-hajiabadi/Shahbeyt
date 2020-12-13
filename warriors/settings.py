@@ -152,7 +152,6 @@ LOGIN_REDIRECT_URL = '/api/'
 LOGIN_URL = '/api/accounts/login/'
 USE_X_FORWARDED_HOST = True
 FORCE_SCRIPT_NAME = '/api'
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'warriors/static')
 
