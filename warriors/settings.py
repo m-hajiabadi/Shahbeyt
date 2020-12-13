@@ -122,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080'
+    'http://localhost:80'
 ]
 
 #
@@ -145,6 +145,13 @@ USE_TZ = True
 APPEND_SLASH=False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+
+# fix redirection for /api/admin/
+LOGIN_REDIRECT_URL = '/api/'
+LOGIN_URL = '/api/accounts/login/'
+USE_X_FORWARDED_HOST = True
+FORCE_SCRIPT_NAME = '/api'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'warriors/static')
