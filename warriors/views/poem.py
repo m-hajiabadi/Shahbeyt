@@ -9,19 +9,22 @@ from ..models import Poem, User, Beyt, Comment
 from ..serializers import PoemSerializer_out, PoemSerializer, BeytSerializer
 import json
 
-
 # class ShowPeom (APIView):
 
 # def get_peoem_beyts(self,poem_id):
+from ..settings import ADD_POEM_SCORE
+
+
 @api_view(['GET'])
 def show_poem(request, poem_id):
     try:
         poem = Poem.objects.filter(pk=poem_id).first()
+        if poem is None:
+            return Response({"status": 3003},status=status.HTTP_400_BAD_REQUEST)
         serializer = PoemSerializer_out(poem)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
-        return Response({"status": 3001})
-
+        return Response({"status": 3001},status=status.HTTP_400_BAD_REQUEST)
 
 
 @permission_classes([IsAuthenticated])
@@ -45,4 +48,13 @@ def add_poem(request):
                 _ = serializer.create(validated_data=serializer.validated_data)
     else:
         return Response({"status": 3002}, status=status.HTTP_400_BAD_REQUEST)
+
+    user.score = user.score + ADD_POEM_SCORE
+    user.save()
     return Response({"status": 3000}, status=status.HTTP_200_OK)
+
+
+#3000 : ok
+#3001 :
+#3002 : invalid poem data
+#3003 : poem not exist

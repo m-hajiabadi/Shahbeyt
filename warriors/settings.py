@@ -150,4 +150,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'warriors/static')
 
 PROFILE_COMPLETE_SCORE = 10
+ADD_POEM_SCORE = 50
 LOGIN_REDIRECT_URL = 'home'

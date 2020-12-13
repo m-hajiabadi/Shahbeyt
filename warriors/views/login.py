@@ -22,7 +22,7 @@ class SignUp(APIView):
             print(serializer.data)
             user = User.object.create_user(password=data['password'], email=data['email'],username=data['username'])
             token, create = Token.objects.get_or_create(user=user)
-            return Response({"token : ": token.key})
+            return Response({token.key})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -44,58 +44,6 @@ def login(request):
     except Exception as e :
         print(e)
         return Response("invalid data")
-
-#
-# class HomeView(TemplateView):
-#     template_name = 'index.html'
-#
-#
-# class TryLogin(TemplateView):
-#     template_name = 'try_login.html'
-#
-#
-# class SignUpView(CreateView):
-#     model = User
-#     template_name = 'sign_up.html'
-#     fields = ('username', 'email', 'password')
-#
-#     def get_context_data(self, **kwargs):
-#         kwargs['user_type'] = 'user'
-#         return super().get_context_data(**kwargs)
-#
-#     def form_valid(self, form):
-#         user = form.save()
-#         user.set_password(user.password)
-#         user.save()
-#         login(self.request, user)
-#         return redirect('home')
-#
-#
-# class SignInView(TemplateView):
-#     template_name = 'sign_in.html'
-#
-#     def post(self, request):
-#         email = request.POST['email']
-#         password = request.POST['password']
-#         # user = authenticate(email=email, password=password)
-#         user = User.object.filter(email = email).first()
-#         if user is not None:
-#             if user.check_password(password):
-#                 if user.is_active:
-#                     login(request, user)
-#
-#                     return HttpResponseRedirect(reverse('home'))
-#                 else:
-#                     return HttpResponse("Your account is not active.")
-#             else:
-#                 print("Someone tried to login and failed")
-#                 print("They used username: {} and passoword: {}".format(email, password))
-#                 return HttpResponseRedirect(reverse('try_login'))
-#         else :
-#             print("user with this email not exist")
-#             return HttpResponseRedirect(reverse('try_login'))
-
-        # return render(request, 'sign_in.html', {})   
 
 
 class SignOutView(View):

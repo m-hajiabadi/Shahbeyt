@@ -18,6 +18,7 @@ from django.urls import path
 from warriors.views.login import *
 from warriors.views.profile import *
 from warriors.views.poem import *
+from warriors.views.mainpage import *
 # from warriors.warriors.views.login import *
 
 urlpatterns = [
@@ -28,4 +29,7 @@ urlpatterns = [
     path('user/profile/update/',update_profile, name='update profile'),
     path('poem/<str:poem_id>/',show_poem, name='show poem'),
     path('addPoem/',add_poem, name='add poem'),
+    # path('mainpage/top',top_users, name='top users'),
+    path('mainpage/users',user_number, name='user number'),
+    path('mainpage/poems',poem_number, name='poem number'),
 ]

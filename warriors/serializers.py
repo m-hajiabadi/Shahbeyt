@@ -14,14 +14,13 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-
     def update(self, instance, validated_data):
         try:
             instance.firstname = validated_data.get('firstname', instance.firstname)
             instance.lastname = validated_data.get('lastname', instance.lastname)
             # todo : email validation required
             instance.email = validated_data.get('email', instance.email)
-            # instance.image = validated_data.get('image',instance.image)
+            instance.image = validated_data.get('image',instance.image)
             # todo: username validation required
             instance.username = validated_data.get('username', instance.username)
             instance.bio = validated_data.get('bio', instance.bio)
@@ -37,7 +36,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UserSerializer_out(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'username', 'bio', 'phone', 'firstname', 'lastname', 'score')
+        fields = ('email', 'username', 'bio', 'phone', 'firstname', 'lastname', 'score','image')
 
 class BeytSerializer(serializers.ModelSerializer):
     poem_id = serializers.CharField()
@@ -56,6 +55,7 @@ class BeytSerializer(serializers.ModelSerializer):
             raise ValueError('can not create beyt ')
         beyt.save()
         return beyt
+
 class PoemSerializer_out(serializers.ModelSerializer):
     beyts = serializers.SerializerMethodField()
     creator_name = serializers.CharField(source='creator.username')
