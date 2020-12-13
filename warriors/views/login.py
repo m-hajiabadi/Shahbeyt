@@ -26,24 +26,24 @@ class SignUp(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
-def login(request):
-    try:
-        data = request.data
-        password = data['password']
-        email = data['email']
-        user = User.object.filter(email=email).first()
-        if user is None:
-            return Response("email is wrong ",status=status.HTTP_400_BAD_REQUEST)
-        print(user)
-        if user.check_password(raw_password=password):
-            token = Token.objects.filter(user=user).first()
-            return Response(token.key)
-        else:
-            return Response("password is wrong",status=status.HTTP_400_BAD_REQUEST)
-    except Exception as e :
-        print(e)
-        return Response("invalid data")
+class Login(APIView):
+    def post(self,request):
+        try:
+            data = request.data
+            password = data['password']
+            email = data['email']
+            user = User.object.filter(email=email).first()
+            if user is None:
+                return Response("email is wrong ",status=status.HTTP_400_BAD_REQUEST)
+            print(user)
+            if user.check_password(raw_password=password):
+                token = Token.objects.filter(user=user).first()
+                return Response(token.key)
+            else:
+                return Response("password is wrong",status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e :
+            print(e)
+            return Response("invalid data")
 
 
 class SignOutView(View):

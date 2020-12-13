@@ -24,7 +24,7 @@ from warriors.views.mainpage import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', SignUp.as_view(), name='sign_up'),
-    path('login/', login, name='login'),
+    path('login/', Login.as_view(), name='login'),
     path('user/profile/',user_profile, name=''),
     path('user/profile/update/',update_profile, name='update profile'),
     path('poem/<str:poem_id>/',show_poem, name='show poem'),
