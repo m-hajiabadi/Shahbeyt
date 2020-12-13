@@ -78,7 +78,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=200)
     isComplete = models.BooleanField(default=False)
-    object = models.Manager()
+    object = UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['password', 'username']  # email and password is required by default
