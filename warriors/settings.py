@@ -24,7 +24,7 @@ STATIC_DIR = os.path.join(BASE_DIR, "warriors/static")
 SECRET_KEY = '5qs)5#f40wf1)4*5b#s_(usi)h8hj%h7tlc32ew_-5b6fd06#i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 # Application definition
