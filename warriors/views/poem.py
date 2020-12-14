@@ -65,6 +65,7 @@ def add_poem(request):
         print(serializer.validated_data)
         poem = serializer.create(serializer.validated_data)
         for cnt, beyt in enumerate(beyts):
+            data={}
             data = {**data, **beyt}
             data['poem_id'] = poem.id
             data['number_of_beyt'] = cnt

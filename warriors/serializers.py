@@ -65,7 +65,7 @@ class PoemSerializer_out(serializers.ModelSerializer):
         fields = ['ghaleb','poet','beyt_numbers','create_data','creator_name','beyts']
 
     def get_beyts(self, obj):
-        return Beyt.objects.filter(poem_id=obj.id).order_by('number_of_beyt').values('context')
+        return Beyt.objects.filter(poem_id=obj.id).order_by('number_of_beyt').values('context','isKing')
 
 
 class PoemSerializer(serializers.ModelSerializer):
