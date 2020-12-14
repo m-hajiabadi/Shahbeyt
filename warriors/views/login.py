@@ -38,7 +38,11 @@ class Login(APIView):
             print(user)
             if user.check_password(raw_password=password):
                 token = Token.objects.filter(user=user).first()
-                return Response(token.key)
+                data = {}
+                data['token'] = token.key
+                data['username'] = user.username
+                data['id'] = user.id
+                return Response(data,status=status.HTTP_200_OK)
             else:
                 return Response("password is wrong",status=status.HTTP_400_BAD_REQUEST)
         except Exception as e :
