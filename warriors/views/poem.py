@@ -41,11 +41,12 @@ def delete_poem(request,poem_id):
         poem = Poem.objects.filter(pk=poem_id).first()
         if poem is None:
             return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
+        print(poem)
         poem.delete()
-        return Response( status=status.HTTP_200_OK)
+        return Response({"status":3000}, status=status.HTTP_200_OK)
     except Exception as e:
         print(e)
-        return Response({"general problem"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"status":3003}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # except:

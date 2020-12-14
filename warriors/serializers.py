@@ -90,6 +90,9 @@ class PoemSerializer_test(serializers.ModelSerializer):
 
 class BeytSerializer_out(serializers.ModelSerializer):
     poem_id = serializers.CharField(source = 'poem.pk')
+    user_id = serializers.CharField(source='poem.creator.id')
+    creator_username = serializers.CharField(source='poem.creator.username')
+    poem_create_date = serializers.DateField(source='poem.create_data')
     class Meta:
         model = Beyt
-        fields = ('isKing','context','number_of_beyt','poem_id')
+        fields = ('isKing','context','number_of_beyt','poem_id','user_id','creator_username','poem_create_date')
