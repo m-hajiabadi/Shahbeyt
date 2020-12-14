@@ -36,4 +36,5 @@ urlpatterns = [
     path('api/mainpage/poems',poem_number, name='poem number'),
     path('api/mainpage/randombeyt',random_beyt, name='random beyt'),
     path('api/mainpage/newpoems',new_poems, name='new poems'),
+    # path('api/mainpage/newpoems',new_poems, name='new poems'),
 ]
