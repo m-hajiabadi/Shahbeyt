@@ -36,7 +36,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UserSerializer_out(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'username', 'bio', 'phone', 'firstname', 'lastname', 'score','image')
+        fields = ('email', 'username', 'bio', 'phone', 'firstname', 'lastname', 'score','image','id')
 
 class BeytSerializer(serializers.ModelSerializer):
     poem_id = serializers.CharField()

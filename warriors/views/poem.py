@@ -17,14 +17,14 @@ from ..settings import ADD_POEM_SCORE
 
 @api_view(['GET'])
 def show_poem(request, poem_id):
-    try:
-        poem = Poem.objects.filter(pk=poem_id).first()
-        if poem is None:
-            return Response({"status": 3003},status=status.HTTP_400_BAD_REQUEST)
-        serializer = PoemSerializer_out(poem)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    except:
-        return Response({"status": 3001},status=status.HTTP_400_BAD_REQUEST)
+        try:
+            poem = Poem.objects.filter(pk=poem_id).first()
+            if poem is None:
+                return Response({"status": 3003},status=status.HTTP_400_BAD_REQUEST)
+            serializer = PoemSerializer_out(poem)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response({"status": 3001},status=status.HTTP_400_BAD_REQUEST)
 
 
 @permission_classes([IsAuthenticated])
