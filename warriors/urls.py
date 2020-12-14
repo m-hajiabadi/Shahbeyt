@@ -22,7 +22,7 @@ from warriors.views.mainpage import *
 # from warriors.warriors.views.login import *
 
 urlpatterns = [
-    path('api/admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api/signup/', SignUp.as_view(), name='sign_up'),
     path('api/login/', Login.as_view(), name='login'),
     path('api/changepassword/', change_password, name='change password'),
