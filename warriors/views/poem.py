@@ -65,6 +65,8 @@ def add_poem(request):
         print(serializer.validated_data)
         poem = serializer.create(serializer.validated_data)
         for cnt, beyt in enumerate(beyts):
+            if data.get('isKing'):
+                data.pop('isKing')
             data = {**data, **beyt}
             data['poem_id'] = poem.id
             data['number_of_beyt'] = cnt
@@ -72,7 +74,6 @@ def add_poem(request):
             serializer = BeytSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 _ = serializer.create(validated_data=serializer.validated_data)
-            data={}
     else:
         return Response({"status": 3002}, status=status.HTTP_400_BAD_REQUEST)
 
