@@ -3,8 +3,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from warriors.serializers import LoginUserSerializer, serializers, UserSerializer, UserSerializer_out
-from warriors.settings import PROFILE_COMPLETE_SCORE
+from ..serializers import LoginUserSerializer, serializers, UserSerializer, UserSerializer_out
+from ..settings import PROFILE_COMPLETE_SCORE
 
 from ..models import User, Poem
 from rest_framework.authtoken.models import Token
@@ -50,6 +50,7 @@ def update_profile(request):
             user.isComplete = True
             user.save()
     else:
+        print("update profile error: " ,serializer.errors)
         return Response({"status": 2002}, status=status.HTTP_400_BAD_REQUEST)
 
     return Response({"status": 2000}, status=status.HTTP_200_OK)

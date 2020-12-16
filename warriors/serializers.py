@@ -27,7 +27,8 @@ class UserSerializer(serializers.ModelSerializer):
             instance.phone = validated_data.get('phone', instance.phone)
             # todo: password need to encrypt
             instance.password = validated_data.get('password', instance.password)
-        except:
+        except Exception as e :
+            print("error accured in update profile serializer : ",e)
             return False
         instance.save()
         return instance
