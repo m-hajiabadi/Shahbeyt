@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from warriors.views.poem import *
 from warriors.views.login import *
 from warriors.views.profile import *
@@ -44,5 +46,5 @@ urlpatterns = [
     path('api/poem/comments/<int:poem_id>', get_comment, name='get comments'),
     path('api/poem/addcomment/', add_comment, name='add comment'),
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
