@@ -16,10 +16,16 @@ from ..serializers import PoemSerializer_out
 @permission_classes([IsAuthenticated])
 def user_profile(request):
     user = request.user
-    if user is None:
-        return Response({"status": 2001}, status=status.HTTP_400_BAD_REQUEST)
-    serializer = UserSerializer_out(user)
-    return Response(serializer.data)
+    print(user.image.path)
+    try :
+        if user is None:
+            return Response({"status": 2001}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = UserSerializer_out(user)
+        return Response(serializer.data)
+    except Exception as e:
+        print (e)
+        return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(['GET'])

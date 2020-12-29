@@ -111,3 +111,4 @@ class Comment(models.Model):
     dislike_number = models.IntegerField(default=0)
     created_date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+

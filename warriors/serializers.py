@@ -33,6 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer_out(serializers.ModelSerializer):
+    image = serializers.CharField(source='image.path')
     class Meta:
         model = User
         fields = ('email', 'username', 'bio', 'phone', 'firstname', 'lastname', 'score', 'image', 'id')
