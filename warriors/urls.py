@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from warriors.views.poem import *
 from warriors.views.login import *
 from warriors.views.profile import *
-from warriors.views.poem import *
 from warriors.views.mainpage import *
 # from warriors.warriors.views.login import *
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/signup/', SignUp.as_view(), name='sign_up'),
@@ -36,9 +35,14 @@ urlpatterns = [
     path('api/addPoem/',add_poem, name='add poem'),
     path('api/mainpage/top',top_users, name='top users'),
     path('api/mainpage/users',user_number, name='user number'),
+
     # path('mainpage/users',user_number, name='user number'),
     path('api/mainpage/poems',poem_number, name='poem number'),
     path('api/mainpage/randombeyt',random_beyt, name='random beyt'),
     path('api/mainpage/newpoems',new_poems, name='new poems'),
     # path('api/mainpage/newpoems',new_poems, name='new poems'),
+    path('api/poem/comments/<int:poem_id>', get_comment, name='get comments'),
+    path('api/poem/addcomment/', add_comment, name='add comment'),
+
 ]
+

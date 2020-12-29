@@ -109,5 +109,5 @@ class Comment(models.Model):
     context = models.TextField()
     like_number = models.IntegerField(default=0)
     dislike_number = models.IntegerField(default=0)
-    create_data = models.DateField(auto_now_add=True)
-    commenter = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_date = models.DateField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

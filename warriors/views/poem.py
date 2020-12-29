@@ -6,13 +6,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ..models import Poem, User, Beyt, Comment
-from ..serializers import PoemSerializer_out, PoemSerializer, BeytSerializer
+from ..serializers import PoemSerializer_out, PoemSerializer, BeytSerializer, CommentSerializer, CommentSerializer_out
 import json
 
 # class ShowPeom (APIView):
 
 # def get_peoem_beyts(self,poem_id):
-from ..settings import ADD_POEM_SCORE
+from ..settings import ADD_POEM_SCORE, PAGE_COMMENT_NUMBER
 
 
 @api_view(['GET'])
@@ -32,21 +32,22 @@ def show_all_poem(request):
     # print('salam')
     poem = Poem.objects.all()
     if poem is None:
-         return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
-    serializer = PoemSerializer_out(poem,many=True)
+        return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
+    serializer = PoemSerializer_out(poem, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-def delete_poem(request,poem_id):
+
+def delete_poem(request, poem_id):
     try:
         poem = Poem.objects.filter(pk=poem_id).first()
         if poem is None:
             return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
         print(poem)
         poem.delete()
-        return Response({"status":3000}, status=status.HTTP_200_OK)
+        return Response({"status": 3000}, status=status.HTTP_200_OK)
     except Exception as e:
         print(e)
-        return Response({"status":3003}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # except:
@@ -81,7 +82,39 @@ def add_poem(request):
     user.save()
     return Response({"status": 3000}, status=status.HTTP_200_OK)
 
+
+@permission_classes([IsAuthenticated])
+@api_view(['POST'])
+def add_comment(request):
+    data = request.data
+    user = request.user
+    data['user_id'] = user.id
+    print(data)
+    try:
+        serializer = CommentSerializer(data=data)
+        if serializer.is_valid():
+            comment = serializer.create(validated_data=serializer.validated_data)
+            print('comment created : ', comment)
+            return Response({"status": 3000}, status=status.HTTP_200_OK)
+        return Response({"status": 3005}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        print(e)
+        return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def get_comment(request, poem_id, offset=0):
+    data = request.data
+    comments = Comment.objects.filter(poem_id=poem_id)
+    if comments is None:
+        return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
+    serializer = CommentSerializer_out(comments, many=True)
+    # TODO : add offset
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 # 3000 : ok
 # 3001 :
 # 3002 : invalid poem data
 # 3003 : poem not exist
+# 3005 : invalid comment data

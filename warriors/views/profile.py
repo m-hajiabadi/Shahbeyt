@@ -43,6 +43,7 @@ def update_profile(request):
     if user is None:
         return Response({"status": 2001}, status=status.HTTP_400_BAD_REQUEST)
     serializer = UserSerializer(data=request.data, partial=True)
+    print(request.data)
     if serializer.is_valid():
         user = serializer.update(user, serializer.validated_data)
         if not user.isComplete:
