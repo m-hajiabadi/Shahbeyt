@@ -3,7 +3,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from ..serializers import LoginUserSerializer, serializers, UserSerializer, UserSerializer_out, CommentSerializer_out
+from ..serializers import LoginUserSerializer, serializers, UserSerializer, UserSerializer_out, CommentSerializer_out, \
+    AllPoemSerializer_out
 from ..settings import PROFILE_COMPLETE_SCORE
 
 from ..models import User, Poem,Comment
@@ -81,6 +82,22 @@ def user_comments (request,user_id):
         if comments is None:
             return Response({"status": 2003}, status=status.HTTP_400_BAD_REQUEST)
         serializer = CommentSerializer_out(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e :
+        print(e)
+        return Response({"status": 2004}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def user_liked_poems(request,user_id):
+    try:
+        user = User.object.filter(id =user_id).first()
+        print(user)
+        print(user)
+        poems = user.liked_poems.all()
+        print(poems)
+        if poems is None:
+            return Response({"status": 2003}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = AllPoemSerializer_out(poems, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e :
         print(e)

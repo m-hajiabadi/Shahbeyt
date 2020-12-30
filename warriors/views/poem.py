@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ..models import Poem, User, Beyt, Comment
-from ..serializers import PoemSerializer_out, PoemSerializer, BeytSerializer, CommentSerializer, CommentSerializer_out
+from ..serializers import PoemSerializer_out, PoemSerializer, BeytSerializer, CommentSerializer, CommentSerializer_out, \
+    AllPoemSerializer_out
 import json
 
 # class ShowPeom (APIView):
@@ -33,7 +34,7 @@ def show_all_poem(request):
     poem = Poem.objects.all()
     if poem is None:
         return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
-    serializer = PoemSerializer_out(poem, many=True)
+    serializer =AllPoemSerializer_out(poem, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -129,6 +130,20 @@ def like_or_dislike_comment(request, comment_id, isLike):
                 comment.liked_user.add(user)
         else :
                 comment.disliked_user.add(user)
+        return Response({"status": 3000}, status=status.HTTP_200_OK)
+    except Exception as e:
+        print(e)
+        return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)
+
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+def like_poem(request,poem_id):
+    try:
+        user = request.user
+        poem = Poem.objects.filter(id=poem_id).first()
+        if poem is None:
+            return Response({"status": 3009}, status=status.HTTP_400_BAD_REQUEST)
+        poem.liked_users.add(user)
         return Response({"status": 3000}, status=status.HTTP_200_OK)
     except Exception as e:
         print(e)

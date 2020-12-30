@@ -60,15 +60,31 @@ class BeytSerializer(serializers.ModelSerializer):
 
 class PoemSerializer_out(serializers.ModelSerializer):
     beyts = serializers.SerializerMethodField()
+    likes = serializers.SerializerMethodField()
     creator_name = serializers.CharField(source='creator.username')
 
     class Meta:
         model = Poem
-        fields = ['ghaleb', 'poet', 'beyt_numbers', 'create_data', 'creator_name', 'beyts']
+        fields = ['ghaleb', 'poet', 'beyt_numbers', 'create_data', 'creator_name', 'beyts','likes']
 
     def get_beyts(self, obj):
         return Beyt.objects.filter(poem_id=obj.id).order_by('number_of_beyt').values('context', 'isKing')
+    def get_likes(self,obj):
+        return obj.liked_users.filter().all().count()
 
+class AllPoemSerializer_out(serializers.ModelSerializer):
+    king_beyt = serializers.SerializerMethodField()
+    likes = serializers.SerializerMethodField()
+    creator_name = serializers.CharField(source='creator.username')
+
+    class Meta:
+        model = Poem
+        fields = ['ghaleb', 'poet', 'beyt_numbers', 'create_data', 'creator_name', 'king_beyt','likes']
+
+    def get_king_beyt(self, obj):
+        return Beyt.objects.filter(poem_id=obj.id).filter(isKing=True).values('context')
+    def get_likes(self,obj):
+        return obj.liked_users.filter().all().count()
 
 class PoemSerializer(serializers.ModelSerializer):
     user_id = serializers.CharField()

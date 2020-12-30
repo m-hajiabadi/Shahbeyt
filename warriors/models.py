@@ -86,15 +86,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.firstname + self.lastname
 
-
 class Poem(models.Model):
     GHALEB_LIST = ['رباعی', 'مثنوی', 'غزل', 'قصیده']
     GHALEB_CHOISES = [(number, name) for number, name in enumerate(GHALEB_LIST)]
+    liked_users = models.ManyToManyField(to =User,related_name='liked_poems')
+
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     poet = models.CharField(max_length=200)
     beyt_numbers = models.IntegerField()
     create_data = models.DateField(auto_now_add=True)
     ghaleb = models.CharField(max_length=50)
+
+
 
 
 class Beyt(models.Model):
