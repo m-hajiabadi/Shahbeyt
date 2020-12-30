@@ -29,6 +29,7 @@ urlpatterns = [
     path('api/changepassword/', change_password, name='change password'),
     path('api/user/profile/',user_profile, name=''),
     path('api/user/profile/update/',update_profile, name='update profile'),
+    path('api/user/profile/comments/<int:user_id>',user_comments, name='user comment'),
     path('api/user/profile/poems/<int:user_id>',user_poems, name='user poems'),
     path('api/user/profile/getprofile/<int:user_id>',get_user_profile, name='get user profile'),
     path('api/poem/<int:poem_id>/',show_poem, name='show poem'),

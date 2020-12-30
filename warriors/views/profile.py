@@ -3,10 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from ..serializers import LoginUserSerializer, serializers, UserSerializer, UserSerializer_out
+from ..serializers import LoginUserSerializer, serializers, UserSerializer, UserSerializer_out, CommentSerializer_out
 from ..settings import PROFILE_COMPLETE_SCORE
 
-from ..models import User, Poem
+from ..models import User, Poem,Comment
 from rest_framework.authtoken.models import Token
 
 from ..serializers import PoemSerializer_out
@@ -73,3 +73,15 @@ def get_user_profile(request, user_id):
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         return Response({"status": 2001}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def user_comments (request,user_id):
+    try:
+        comments = Comment.objects.filter(user_id= user_id)
+        if comments is None:
+            return Response({"status": 2003}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = CommentSerializer_out(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e :
+        print(e)
+        return Response({"status": 2004}, status=status.HTTP_400_BAD_REQUEST)
