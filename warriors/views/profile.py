@@ -17,7 +17,7 @@ from ..serializers import PoemSerializer_out
 @permission_classes([IsAuthenticated])
 def user_profile(request):
     user = request.user
-    print(user.image.path)
+    # print(user.image.path)
     try :
         if user is None:
             return Response({"status": 2001}, status=status.HTTP_400_BAD_REQUEST)
@@ -36,7 +36,7 @@ def user_poems(request,user_id):
         poems = Poem.objects.filter(creator_id = user_id)
         if poems is None:
             return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = PoemSerializer_out(poems, many=True)
+        serializer = AllPoemSerializer_out(poems, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e :
         print(e)

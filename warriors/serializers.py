@@ -79,7 +79,7 @@ class AllPoemSerializer_out(serializers.ModelSerializer):
 
     class Meta:
         model = Poem
-        fields = ['ghaleb', 'poet', 'beyt_numbers', 'create_data', 'creator_name', 'king_beyt','likes']
+        fields = ['ghaleb', 'poet', 'beyt_numbers', 'create_data', 'creator_name', 'king_beyt','likes','id']
 
     def get_king_beyt(self, obj):
         return Beyt.objects.filter(poem_id=obj.id).filter(isKing=True).values('context')
@@ -155,7 +155,7 @@ class CommentSerializer_out(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('like_number', 'context', 'poem_id', 'user_id','username','dislike_number','created_date')
+        fields = ('like_number', 'context', 'poem_id', 'user_id','username','dislike_number','created_date','id')
     def get_like_number(self,obj):
         return obj.liked_user.filter().all().count()
 
