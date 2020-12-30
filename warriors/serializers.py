@@ -33,7 +33,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer_out(serializers.ModelSerializer):
-    image = serializers.CharField(source='image.path')
     class Meta:
         model = User
         fields = ('email', 'username', 'bio', 'phone', 'firstname', 'lastname', 'score', 'image', 'id')
@@ -135,7 +134,14 @@ class CommentSerializer_out(serializers.ModelSerializer):
     poem_id = serializers.CharField(source='poem.pk')
     user_id = serializers.CharField(source='user.pk')
     username = serializers.CharField(source='user.username')
+    like_number =serializers.SerializerMethodField()
+    dislike_number =serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
         fields = ('like_number', 'context', 'poem_id', 'user_id','username','dislike_number','created_date')
+    def get_like_number(self,obj):
+        return obj.liked_user.filter().all().count()
+
+    def get_dislike_number(self,obj):
+        return obj.disliked_user.filter().all().count()

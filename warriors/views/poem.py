@@ -102,7 +102,6 @@ def add_comment(request):
         return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 @api_view(['GET'])
 def get_comment(request, poem_id, offset=0):
     data = request.data
@@ -113,8 +112,31 @@ def get_comment(request, poem_id, offset=0):
     # TODO : add offset
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+def like_or_dislike_comment(request, comment_id, isLike):
+    user = request.user
+    try:
+        comment = Comment.objects.filter(id=comment_id).first()
+        if comment is None:
+            return Response({"status": 3007}, status=status.HTTP_400_BAD_REQUEST)
+        if comment.liked_user.filter(id=user.id):
+            comment.liked_user.remove(user)
+        if comment.disliked_user.filter(id=user.id):
+            comment.disliked_user.remove(user)
+        if isLike:
+                comment.liked_user.add(user)
+        else :
+                comment.disliked_user.add(user)
+        return Response({"status": 3000}, status=status.HTTP_200_OK)
+    except Exception as e:
+        print(e)
+        return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)
+
 # 3000 : ok
 # 3001 :
 # 3002 : invalid poem data
 # 3003 : poem not exist
 # 3005 : invalid comment data
+# 3007 : comment not exist

@@ -107,8 +107,8 @@ class Beyt(models.Model):
 class Comment(models.Model):
     poem = models.ForeignKey(Poem, on_delete=models.CASCADE)
     context = models.TextField()
-    like_number = models.IntegerField(default=0)
-    dislike_number = models.IntegerField(default=0)
     created_date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    liked_user = models.ManyToManyField(User,related_name='liked_comments')
+    disliked_user=models.ManyToManyField(User,related_name='disliked_comments')
 
