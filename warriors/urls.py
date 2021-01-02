@@ -43,7 +43,6 @@ urlpatterns = [
     path('api/search',search_beyts, name='search'),
     path('api/mainpage/top',top_users, name='top users'),
     path('api/mainpage/users',user_number, name='user number'),
-
     path('api/annotation/add',add_annotation, name='add annotation'),
     path('api/annotation/get/<int:poem_id>',get_poem_annotation, name='get annotation'),
 

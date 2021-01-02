@@ -52,9 +52,15 @@ def add_annotation(request):
 # @permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_poem_annotation(request,poem_id):
-    annotations = Annotation.objects.filter(poem_id=poem_id)
-    serializer = AnnotationSerializer(annotations,many=True)
-    return Response(serializer.data,status=status.HTTP_200_OK)
+    try:
+        annotations = Annotation.objects.filter(poem_id=poem_id)
+        if annotations is None :
+            return Response( status=status.HTTP_200_OK)
+        serializer = AnnotationSerializer(annotations,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    except Exception as e :
+        return Response({"status": 4003}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 def concate_beyts(poem_id):
