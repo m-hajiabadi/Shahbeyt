@@ -8,7 +8,7 @@ from warriors.serializers import LoginUserSerializer, serializers, UserSerialize
 
 from warriors.settings import PROFILE_COMPLETE_SCORE, TOP_USER_NUMBERS
 import random
-from ..models import User as UserModel, Poem, Beyt
+from ..models import User as UserModel, Poem, Beyt, Annotation
 from ..serializers import PoemSerializer
 from rest_framework.authtoken.models import Token
 
@@ -30,6 +30,10 @@ def poem_number(request):
     poem_number = Poem.objects.all().count()
     return Response({"number": poem_number})
 
+@api_view(['GET'])
+def annotation_number(request):
+    annotation_number = Annotation.objects.all().count()
+    return Response({"number": annotation_number})
 
 @api_view(['GET'])
 def new_poem(request):

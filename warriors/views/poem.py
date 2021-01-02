@@ -38,9 +38,12 @@ def show_all_poem(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
 def delete_poem(request, poem_id):
+    user = request.user
     try:
-        poem = Poem.objects.filter(pk=poem_id).first()
+        poem = Poem.objects.filter(pk=poem_id,creator_id =user.id).first()
         if poem is None:
             return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
         print(poem)
@@ -48,7 +51,7 @@ def delete_poem(request, poem_id):
         return Response({"status": 3000}, status=status.HTTP_200_OK)
     except Exception as e:
         print(e)
-        return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"status": 3004}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # except:
