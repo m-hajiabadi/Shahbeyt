@@ -59,6 +59,7 @@ def get_poem_annotation(request,poem_id):
         serializer = AnnotationSerializer(annotations,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     except Exception as e :
+        print(e)
         return Response({"status": 4003}, status=status.HTTP_400_BAD_REQUEST)
 
 
