@@ -115,3 +115,11 @@ class Comment(models.Model):
     liked_user = models.ManyToManyField(User,related_name='liked_comments')
     disliked_user=models.ManyToManyField(User,related_name='disliked_comments')
 
+class Annotation(models.Model):
+    context = models.TextField()
+    poem = models.ForeignKey(Poem,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    start_index = models.IntegerField()
+    end_index = models.IntegerField()
+
+

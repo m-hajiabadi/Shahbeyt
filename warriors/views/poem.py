@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 from ..models import Poem, User, Beyt, Comment
 from ..serializers import PoemSerializer_out, PoemSerializer, BeytSerializer, CommentSerializer, CommentSerializer_out, \
-    AllPoemSerializer_out
+    AllPoemSerializer_out, BeytSerializer_out
 import json
 
 # class ShowPeom (APIView):
@@ -34,7 +34,7 @@ def show_all_poem(request):
     poem = Poem.objects.all()
     if poem is None:
         return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
-    serializer =AllPoemSerializer_out(poem, many=True)
+    serializer = AllPoemSerializer_out(poem, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -127,17 +127,18 @@ def like_or_dislike_comment(request, comment_id, isLike):
         if comment.disliked_user.filter(id=user.id):
             comment.disliked_user.remove(user)
         if isLike:
-                comment.liked_user.add(user)
-        else :
-                comment.disliked_user.add(user)
+            comment.liked_user.add(user)
+        else:
+            comment.disliked_user.add(user)
         return Response({"status": 3000}, status=status.HTTP_200_OK)
     except Exception as e:
         print(e)
         return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)
 
+
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
-def like_poem(request,poem_id):
+def like_poem(request, poem_id):
     try:
         user = request.user
         poem = Poem.objects.filter(id=poem_id).first()
@@ -145,6 +146,35 @@ def like_poem(request,poem_id):
             return Response({"status": 3009}, status=status.HTTP_400_BAD_REQUEST)
         poem.liked_users.add(user)
         return Response({"status": 3000}, status=status.HTTP_200_OK)
+    except Exception as e:
+        print(e)
+        return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+def remove_like_poem(request, poem_id):
+    user = request.user
+    try:
+        poem = Poem.objects.filter(id=poem_id).first()
+        if poem is None:
+            return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
+        if poem.liked_users.filter(id=user.id):
+            poem.liked_users.remove(user)
+        return Response({"status": 3000}, status=status.HTTP_200_OK)
+    except Exception as e:
+        print(e)
+        return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def search_beyts(request):
+    try:
+        key = request.GET['key']
+        print("this is key of search : ", key)
+        beyts = Beyt.objects.filter(context__contains=key)
+        serializer = BeytSerializer_out(beyts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         print(e)
         return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)

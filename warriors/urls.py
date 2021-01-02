@@ -21,6 +21,7 @@ from warriors.views.poem import *
 from warriors.views.login import *
 from warriors.views.profile import *
 from warriors.views.mainpage import *
+from warriors.views.annotation import *
 # from warriors.warriors.views.login import *
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,9 +38,14 @@ urlpatterns = [
     path('api/poem/all/',show_all_poem, name='show all poem'),
     path('api/poem/delete/<int:poem_id>',delete_poem, name='delete poem'),
     path('api/poem/likepoem/<int:poem_id>',like_poem, name='like poem'),
+    path('api/poem/removelike/<int:poem_id>',remove_like_poem, name='remove like poem'),
     path('api/addPoem/',add_poem, name='add poem'),
+    path('api/search',search_beyts, name='search'),
     path('api/mainpage/top',top_users, name='top users'),
     path('api/mainpage/users',user_number, name='user number'),
+
+    path('api/annotation/add',add_annotation, name='add annotation'),
+    path('api/annotation/get/<int:poem_id>',get_poem_annotation, name='get annotation'),
 
     # path('mainpage/users',user_number, name='user number'),
     path('api/mainpage/poems',poem_number, name='poem number'),

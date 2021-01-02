@@ -1,7 +1,7 @@
 from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from .models import User, Beyt, Poem,Comment
+from .models import User, Beyt, Poem, Comment, Annotation
 
 
 class LoginUserSerializer(serializers.ModelSerializer):
@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
             instance.username = validated_data.get('username', instance.username)
             instance.bio = validated_data.get('bio', instance.bio)
         except Exception as e:
-            raise ValueError (e)
+            raise ValueError(e)
             return False
         instance.save()
         return instance
@@ -65,12 +65,14 @@ class PoemSerializer_out(serializers.ModelSerializer):
 
     class Meta:
         model = Poem
-        fields = ['ghaleb', 'poet', 'beyt_numbers', 'create_data', 'creator_name', 'beyts','likes']
+        fields = ['ghaleb', 'poet', 'beyt_numbers', 'create_data', 'creator_name', 'beyts', 'likes']
 
     def get_beyts(self, obj):
         return Beyt.objects.filter(poem_id=obj.id).order_by('number_of_beyt').values('context', 'isKing')
-    def get_likes(self,obj):
+
+    def get_likes(self, obj):
         return obj.liked_users.filter().all().count()
+
 
 class AllPoemSerializer_out(serializers.ModelSerializer):
     king_beyt = serializers.SerializerMethodField()
@@ -79,12 +81,14 @@ class AllPoemSerializer_out(serializers.ModelSerializer):
 
     class Meta:
         model = Poem
-        fields = ['ghaleb', 'poet', 'beyt_numbers', 'create_data', 'creator_name', 'king_beyt','likes','id']
+        fields = ['ghaleb', 'poet', 'beyt_numbers', 'create_data', 'creator_name', 'king_beyt', 'likes', 'id']
 
     def get_king_beyt(self, obj):
         return Beyt.objects.filter(poem_id=obj.id).filter(isKing=True).values('context')
-    def get_likes(self,obj):
+
+    def get_likes(self, obj):
         return obj.liked_users.filter().all().count()
+
 
 class PoemSerializer(serializers.ModelSerializer):
     user_id = serializers.CharField()
@@ -120,14 +124,13 @@ class BeytSerializer_out(serializers.ModelSerializer):
         fields = ('isKing', 'context', 'number_of_beyt', 'poem_id', 'user_id', 'creator_username', 'poem_create_date')
 
 
-
 class CommentSerializer(serializers.ModelSerializer):
     poem_id = serializers.CharField()
     user_id = serializers.IntegerField()
 
     class Meta:
         model = Comment
-        fields = ('context', 'created_date', 'poem_id','user_id')
+        fields = ('context', 'created_date', 'poem_id', 'user_id')
 
     def create(self, validated_data):
         poem_id = validated_data['poem_id']
@@ -136,10 +139,10 @@ class CommentSerializer(serializers.ModelSerializer):
             raise ValueError('poem not exist')
         user_id = validated_data['user_id']
         user = User.object.filter(id=user_id).first()
-        if poem is None:
+        if user is None:
             raise ValueError('user not exist')
         validated_data.pop('user_id')
-        comment = Comment(**validated_data, poem=poem,user=user)
+        comment = Comment(**validated_data, poem=poem, user=user)
         if comment is None:
             raise ValueError('can not create comment ')
         comment.save()
@@ -150,14 +153,44 @@ class CommentSerializer_out(serializers.ModelSerializer):
     poem_id = serializers.CharField(source='poem.pk')
     user_id = serializers.CharField(source='user.pk')
     username = serializers.CharField(source='user.username')
-    like_number =serializers.SerializerMethodField()
-    dislike_number =serializers.SerializerMethodField()
+    like_number = serializers.SerializerMethodField()
+    dislike_number = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
-        fields = ('like_number', 'context', 'poem_id', 'user_id','username','dislike_number','created_date','id')
-    def get_like_number(self,obj):
+        fields = ('like_number', 'context', 'poem_id', 'user_id', 'username', 'dislike_number', 'created_date', 'id')
+
+    def get_like_number(self, obj):
         return obj.liked_user.filter().all().count()
 
-    def get_dislike_number(self,obj):
+    def get_dislike_number(self, obj):
         return obj.disliked_user.filter().all().count()
+
+
+class AnnotationSerializer(serializers.ModelSerializer):
+    poem_id = serializers.CharField(source='poem.pk')
+    user_id = serializers.CharField(source='user.pk')
+
+    class Meta:
+        model = Annotation
+        fields = ('poem_id', 'context', 'start_index', 'end_index', 'user_id')
+
+    def create(self, validated_data):
+        # print(self.poem_id)
+        # print(validated_data[0])
+        poem_id = self.data['poem_id']
+        poem = Poem.objects.filter(id=poem_id).first()
+        if poem is None:
+            raise ValueError('poem not exist')
+        user_id = self.data['user_id']
+        user = User.object.filter(id=user_id).first()
+        if user is None:
+            raise ValueError('user not exist')
+        validated_data.pop('user')
+        validated_data.pop('poem')
+
+        annotation = Annotation(**validated_data,poem=poem,user=user)
+        if annotation is None:
+            raise ValueError('can not create annotation ')
+        annotation.save()
+        return annotation
