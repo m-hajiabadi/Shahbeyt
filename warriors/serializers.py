@@ -118,10 +118,12 @@ class BeytSerializer_out(serializers.ModelSerializer):
     user_id = serializers.CharField(source='poem.creator.id')
     creator_username = serializers.CharField(source='poem.creator.username')
     poem_create_date = serializers.DateField(source='poem.create_data')
+    image = serializers.ImageField(source='poem.creator.image')
 
     class Meta:
         model = Beyt
-        fields = ('isKing', 'context', 'number_of_beyt', 'poem_id', 'user_id', 'creator_username', 'poem_create_date')
+        fields = (
+        'isKing', 'context', 'number_of_beyt', 'poem_id', 'user_id', 'creator_username', 'poem_create_date', 'image')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -153,12 +155,14 @@ class CommentSerializer_out(serializers.ModelSerializer):
     poem_id = serializers.CharField(source='poem.pk')
     user_id = serializers.CharField(source='user.pk')
     username = serializers.CharField(source='user.username')
+    image = serializers.ImageField(source='user.image')
     like_number = serializers.SerializerMethodField()
     dislike_number = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
-        fields = ('like_number', 'context', 'poem_id', 'user_id', 'username', 'dislike_number', 'created_date', 'id')
+        fields = (
+        'like_number', 'context', 'poem_id', 'user_id', 'username', 'dislike_number', 'created_date', 'id', 'image')
 
     def get_like_number(self, obj):
         return obj.liked_user.filter().all().count()
@@ -170,10 +174,12 @@ class CommentSerializer_out(serializers.ModelSerializer):
 class AnnotationSerializer(serializers.ModelSerializer):
     poem_id = serializers.CharField(source='poem.pk')
     user_id = serializers.CharField(source='user.pk')
+    image = serializers.ImageField(source='user.image')
+    username = serializers.CharField(source='user.username')
 
     class Meta:
         model = Annotation
-        fields = ('poem_id', 'context', 'start_index', 'end_index', 'user_id')
+        fields = ('poem_id', 'context', 'start_index', 'end_index', 'user_id', 'image', 'username')
 
     def create(self, validated_data):
         # print(self.poem_id)
@@ -189,7 +195,7 @@ class AnnotationSerializer(serializers.ModelSerializer):
         validated_data.pop('user')
         validated_data.pop('poem')
 
-        annotation = Annotation(**validated_data,poem=poem,user=user)
+        annotation = Annotation(**validated_data, poem=poem, user=user)
         if annotation is None:
             raise ValueError('can not create annotation ')
         annotation.save()

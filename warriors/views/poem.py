@@ -31,7 +31,7 @@ def show_poem(request, poem_id):
 @api_view(['GET'])
 def show_all_poem(request):
     # print('salam')
-    poem = Poem.objects.all()
+    poem = reversed(Poem.objects.all())
     if poem is None:
         return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
     serializer = AllPoemSerializer_out(poem, many=True)
