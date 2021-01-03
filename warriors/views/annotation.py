@@ -87,10 +87,10 @@ def concate_beyts(poem_id):
 
 
 def isCorrectRange(start, end, new_start, new_end,size):
-    if new_end < start and new_start > -1:
+    if new_end < start:
         if new_start < new_end:
             return True
-    if new_start > end and new_end<size:
+    if new_start > end:
         if new_end > new_start:
             return True
     return False
