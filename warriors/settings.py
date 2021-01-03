@@ -24,7 +24,7 @@ STATIC_DIR = os.path.join(BASE_DIR, "warriors/static")
 SECRET_KEY = '5qs)5#f40wf1)4*5b#s_(usi)h8hj%h7tlc32ew_-5b6fd06#i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 # Application definition
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 REST_FRAMEWORK = {
@@ -162,4 +163,4 @@ LOGIN_REDIRECT_URL = 'home'
 PAGE_COMMENT_NUMBER = 10
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+MEDIA_ROOT = os.path.join(BASE_DIR, '/images')

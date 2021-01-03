@@ -62,6 +62,17 @@ def get_poem_annotation(request,poem_id):
         print(e)
         return Response({"status": 4003}, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def get_user_annotation(request,user_id):
+    try:
+        annotations = Annotation.objects.filter(user_id = user_id)
+        if annotations is None :
+            return Response( status=status.HTTP_200_OK)
+        serializer = AnnotationSerializer(annotations,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    except Exception as e :
+        print(e)
+        return Response({"status": 4003}, status=status.HTTP_400_BAD_REQUEST)
 
 
 def concate_beyts(poem_id):

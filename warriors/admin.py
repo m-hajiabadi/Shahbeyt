@@ -10,8 +10,8 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Poem)
 class PoemAdmin(admin.ModelAdmin):
-    search_fields = ('ghaleb','id')
-    list_display = ('ghaleb','id')
+    search_fields = ('ghaleb','id','beyt_numbers')
+    list_display = ('ghaleb','id','beyt_numbers')
 
 
 @admin.register(Beyt)

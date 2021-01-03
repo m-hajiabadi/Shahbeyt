@@ -44,7 +44,8 @@ urlpatterns = [
                   path('api/search', search_beyts, name='search'),
 
                   path('api/annotation/add', add_annotation, name='add annotation'),
-                  path('api/annotation/get/<int:poem_id>', get_poem_annotation, name='get annotation'),
+                  path('api/annotation/get/<int:poem_id>', get_poem_annotation, name='get  poem annotation'),
+                  path('api/user/annotation/<int:user_id>', get_user_annotation, name='get user annotation'),
 
                   # path('mainpage/users',user_number, name='user number'),
                   path('api/mainpage/poems', poem_number, name='poem number'),
