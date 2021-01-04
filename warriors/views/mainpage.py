@@ -61,7 +61,7 @@ def pick_random_object():
 @api_view(['GET'])
 def random_beyt(request):
     beyt = None
-    while beyt != None:
+    while beyt is None:
         beyt = Beyt.objects.filter()[pick_random_object()]
     serializers = BeytSerializer_out(beyt)
     return Response(serializers.data, status=status.HTTP_200_OK)
