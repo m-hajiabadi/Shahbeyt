@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 from ..models import Poem, User, Beyt, Comment, Annotation
 from ..serializers import PoemSerializer_out, PoemSerializer, BeytSerializer, CommentSerializer, CommentSerializer_out, \
-    AllPoemSerializer_out, BeytSerializer_out, AnnotationSerializer
+    AllPoemSerializer_out, BeytSerializer_out, AnnotationSerializer, AnnotationSerializer_out
 import json
 
 # class ShowPeom (APIView):
@@ -56,7 +56,7 @@ def get_poem_annotation(request,poem_id):
         annotations = Annotation.objects.filter(poem_id=poem_id)
         if annotations is None :
             return Response( status=status.HTTP_200_OK)
-        serializer = AnnotationSerializer(annotations,many=True)
+        serializer = AnnotationSerializer_out(annotations,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     except Exception as e :
         print(e)
@@ -68,7 +68,7 @@ def get_user_annotation(request,user_id):
         annotations = Annotation.objects.filter(user_id = user_id)
         if annotations is None :
             return Response( status=status.HTTP_200_OK)
-        serializer = AnnotationSerializer(annotations,many=True)
+        serializer = AnnotationSerializer_out(annotations,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     except Exception as e :
         print(e)

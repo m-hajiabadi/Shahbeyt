@@ -171,7 +171,7 @@ class CommentSerializer_out(serializers.ModelSerializer):
         return obj.disliked_user.filter().all().count()
 
 
-class AnnotationSerializer(serializers.ModelSerializer):
+class AnnotationSerializer_out(serializers.ModelSerializer):
     poem_id = serializers.CharField(source='poem.pk')
     user_id = serializers.CharField(source='user.pk')
     image = serializers.ImageField(source='user.image')
@@ -180,6 +180,15 @@ class AnnotationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Annotation
         fields = ('poem_id', 'context','date', 'start_index', 'end_index', 'user_id', 'image', 'username')
+
+
+class AnnotationSerializer(serializers.ModelSerializer):
+    poem_id = serializers.CharField(source='poem.pk')
+    user_id = serializers.CharField(source='user.pk')
+
+    class Meta:
+        model = Annotation
+        fields = ('poem_id', 'context','date', 'start_index', 'end_index', 'user_id')
 
     def create(self, validated_data):
         # print(self.poem_id)
