@@ -57,6 +57,7 @@ urlpatterns = [
                   # path('api/mainpage/newpoems',new_poems, name='new poems'),
                   path('api/poem/comments/<int:poem_id>', get_comment, name='get comments'),
                   path('api/poem/addcomment/', add_comment, name='add comment'),
+                  path('api/poem/likednumber/<int:poem_id>', poem_liked_number, name='poem liked number'),
                   path('api/poem/likecomment/<int:comment_id>/<int:isLike>', like_or_dislike_comment,
                        name='like comment'),
                   path('api/poem/isuserliked/<int:poem_id>', is_user_liked_poem,name= 'is user liked poem'),

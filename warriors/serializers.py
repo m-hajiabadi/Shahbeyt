@@ -179,7 +179,7 @@ class AnnotationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Annotation
-        fields = ('poem_id', 'context', 'start_index', 'end_index', 'user_id', 'image', 'username')
+        fields = ('poem_id', 'context','date', 'start_index', 'end_index', 'user_id', 'image', 'username')
 
     def create(self, validated_data):
         # print(self.poem_id)
