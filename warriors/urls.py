@@ -59,5 +59,6 @@ urlpatterns = [
                   path('api/poem/addcomment/', add_comment, name='add comment'),
                   path('api/poem/likecomment/<int:comment_id>/<int:isLike>', like_or_dislike_comment,
                        name='like comment'),
+                  path('api/poem/isuserliked/<int:poem_id>', is_user_liked_poem,name= 'is user liked poem'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

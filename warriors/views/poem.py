@@ -182,6 +182,22 @@ def search_beyts(request):
         print(e)
         return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)
 
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+def is_user_liked_poem(request,poem_id):
+    user = request.user
+    try:
+        poem = Poem.objects.filter(id=poem_id).first()
+        if poem is None:
+            return Response({"status": 3003}, status=status.HTTP_400_BAD_REQUEST)
+        if poem.liked_users.filter(id=user.id):
+            return Response({"isLike":True}, status=status.HTTP_200_OK)
+        else :
+            return Response({"isLike":False}, status=status.HTTP_200_OK)
+    except Exception as e:
+        print(e)
+        return Response({"status": 3001}, status=status.HTTP_400_BAD_REQUEST)
+
 # 3000 : ok
 # 3001 :
 # 3002 : invalid poem data
