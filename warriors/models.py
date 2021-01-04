@@ -117,7 +117,7 @@ class Comment(models.Model):
 
 class Annotation(models.Model):
     context = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True)
     poem = models.ForeignKey(Poem,on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     start_index = models.IntegerField()
