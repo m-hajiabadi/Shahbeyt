@@ -1,10 +1,10 @@
 # Shahbeyt
 This project has been developed for the course of systems analysis and design.
 Contributors:
--Behnam Esmaeil Beigi
--Morteza Hajiabadi
--Taha Amiri
--Hesam Sheikh Hasani
+- Behnam Esmaeil Beigi
+- Morteza Hajiabadi
+- Taha Amiri
+- Hesam Sheikh Hasani
 
 #Demo
 ![image](https://user-images.githubusercontent.com/46417220/209422732-5cfb2ab3-46e0-42a7-86c1-3bb55eab30c2.png)
